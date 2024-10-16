@@ -37,6 +37,16 @@ export default function FilterNewsPage({ params }) {
     newsContent = <NewsList news={news} />;
   }
 
+  // 유효하지 않은 연도 혹은 월에 접근할 경우 오류 발생
+  if (
+    (selectedYear &&
+      !getAvailableNewsYears(selectedYear).includes(+selectedYear)) ||
+    (selectedMonth &&
+      !getAvailableNewsMonths(selectedYear).includes(+selectedMonth))
+  ) {
+    throw new Error("Invalid filter.");
+  }
+
   return (
     <>
       <header id="archive-header">
